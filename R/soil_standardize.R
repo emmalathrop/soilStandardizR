@@ -1,35 +1,47 @@
 
-soil_standardize <- function(soilDf, coreNumName = NA, depth0Name = NA, depth1Name = NA, newDepth0, newDepth1){
+soil_standardize <- function(soilDf, coreNumName = NA, depth0Name = NA, depth1Name = NA){
 
-  if((is.na(coreNumName) | is.na(depth0Name) | is.na(depth1Name)) & ){
+if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %in% colnames(soilDf)) | !("depth0" %in% colnames(soilDf)) | !("depth1" %in% colnames(soilDf)))){
+  print("Data frame must contain the following columns: 'coreNum', 'depth0', 'depth1'!")
+} else if(is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)){
+  coreNum <- soilDf$coreNum
+  depth0 <- soilDf$depth0
+  depth1 <- soilDf$depth1
+} else if (!is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) {
+  coreNum <- soilDf$coreNumName
+  depth0 <- soilDf$depth0
+  depth1 <- soilDf$depth1
+} else if (is.na(coreNumName) & !is.na(depth0Name) & is.na(depth1Name)){
+  coreNum <- soilDf$coreNum
+  depth0 <- soilDf$depth0Name
+  depth1 <- soilDf$depth1
+} else if (is.na(coreNumName) & is.na(depth0Name) & !is.na(depth1Name)){
+  coreNum <- soilDf$coreNum
+  depth0 <- soilDf$depth0
+  depth1 <- soilDf$depth1Name
+} else if (!is.na(coreNumName) & !is.na(depth0Name) & is.na(depth1Name)){
+  coreNum <- soilDf$coreNumName
+  depth0 <- soilDf$depth0Name
+  depth1 <- soilDf$depth1
+} else if (!is.na(coreNumName) & is.na(depth0Name) & !is.na(depth1Name)){
+  coreNum <- soilDf$coreNumName
+  depth0 <- soilDf$depth0
+  depth1 <- soilDf$depth1Name
+} else if (is.na(coreNumName) & !is.na(depth0Name) & !is.na(depth1Name)){
+  coreNum <- soilDf$coreNum
+  depth0 <- soilDf$depth0Name
+  depth1 <- soilDf$depth1Name
+} else if (is.na(coreNumName) & !is.na(depth0Name) & !is.na(depth1Name)){
+  coreNum <- soilDf$coreNumName
+  depth0 <- soilDf$depth0Name
+  depth1 <- soilDf$depth1Name
+}
 
-  } else if(is.na(coreNumName) | is.na(depth0Name) | is.na(depth1Name)){
-    coreNum <- soilDf$coreNum
-    depth0 <- soilDf$depth0
-    depth1 <- soilDf$depth1
-  }else {
-    coreNum <- soilDf$coreNumName
-    depth0 <- soilDf$depth0Name
-    depth1 <- soilDf$depth1Name
-  }
-
-
-  soilDf <- soilDf %>%
-    dplyr::mutate(coreNum = {{coreNum}},
-                  depth0 = {{depth0}},
-                  depth1 = {{depth1}})
-  #check and give error if cols aren't present
-  #rename option- make parameters with NA as default and then check that cols are there and named appropriately
-
-
-  cores <- unique(soilCores$coreNum)
+  cores <- unique(soilDf$coreNum)
 
   #These are the new depths that you want to standardize to
   depth0_values <- c(0, 5, 15, 25, 35, 45, 55, 65, 75, 85, 95, 105)
   depth1_values <- c(5, 15, 25, 35, 45, 55, 65, 75, 85, 95, 105, 115)
-  #To do: check that depth 0 and depth 1 share values
-  #Do this for new and old depth0 and depth1 (to know that cores depths are continuous)
-  #To do: make the newDepth0 and 1 customizeable
 
   soilDf$seg.length <- soilDf$depth1-soilDf$depth0
   soil_depth_std <- data.frame(data.frame(matrix(nrow = 0, ncol = ncol(soilDf)+1))) #creates a blank dataframe that will hold the all the cores after they've been depth standardized
@@ -41,7 +53,6 @@ soil_standardize <- function(soilDf, coreNumName = NA, depth0Name = NA, depth1Na
     colnames(coreSegDf) <- colnames(coreDf) #make the column names the same
 
     #split the core into 0.5 cm increments
-    #to-do: documentation should indicate that the depths can't have greater than 0.5cm resolution
     for(i in 1:nrow(coreDf)){ #split the core into 0.5 cm increments
 
       #To do: might want to make this first if statement something that someone could change
@@ -175,9 +186,6 @@ soil_standardize <- function(soilDf, coreNumName = NA, depth0Name = NA, depth1Na
     colnames(soil_depth_std) <- colnames(coreStd)
     soil_depth_std <- rbind(soil_depth_std, coreStd)
   }
-#to-do: clean up the soil_depth_standard order return
+
   return(soil_depth_std)
 }
-
-
-soil_standardize(soilDf = soilCores)
