@@ -1,4 +1,15 @@
 
+#' Standardize soil cores by depth
+#'
+#' @param soilDf a dataframe that contains soil cores that need to be depth standardized
+#' @param coreNumName unique identifier of each core (automatically assumed to be coreNum unless otherwise specified)
+#' @param depth0Name top depths of each increment in soil core (automatically assumed to be depth0 unless otherwise specified)
+#' @param depth1Name bottom depths of each increment in soil core (automatically assumed to be depth1 unless otherwise specified)
+#'
+#' @return A data frame with standardized depth values
+#' @export
+#'
+#' @examples NA
 soil_standardize <- function(soilDf, coreNumName = NA, depth0Name = NA, depth1Name = NA){
 
 if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %in% colnames(soilDf)) | !("depth0" %in% colnames(soilDf)) | !("depth1" %in% colnames(soilDf)))){
@@ -48,7 +59,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
 
   for(core in cores){
     coreDf <- subset(soilDf, coreNum == core) %>% #creates a dataframe that has one core in it, arranged by depth
-      arrange(depth0)
+      dplyr::arrange(depth0)
     coreSegDf <- data.frame(matrix(nrow = 0, ncol = ncol(coreDf))) #creates a blank dataframe that will hold the segmented core
     colnames(coreSegDf) <- colnames(coreDf) #make the column names the same
 
@@ -77,7 +88,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
     #why can you get rid of depth 0 and depth1 here? Because no you will be using segment length
     coreSegAll <- coreSegDf %>%
       dplyr::select(-depth0, -depth1, -coreNum) %>%
-      mutate(cu.seg.length = cumsum(seg.length))
+      dplyr::mutate(cu.seg.length = cumsum(seg.length))
 
     #Create empty df that will hold the standardized core depth values
     coreStd <-data.frame(matrix(nrow = 0, ncol = ncol(coreSegAll)))
@@ -90,7 +101,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-9):i, ]
         #sum the previous 10 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 5) %>%
+          dplyr::mutate(depth1 = 5) %>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -98,7 +109,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 15)%>%
+          dplyr::mutate(depth1 = 15)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -106,7 +117,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 25)%>%
+          dplyr::mutate(depth1 = 25)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -114,7 +125,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 35)%>%
+          dplyr::mutate(depth1 = 35)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -122,7 +133,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 45)%>%
+          dplyr::mutate(depth1 = 45)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -130,7 +141,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 55)%>%
+          dplyr::mutate(depth1 = 55)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -138,7 +149,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 65)%>%
+          dplyr::mutate(depth1 = 65)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -146,7 +157,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 75)%>%
+          dplyr::mutate(depth1 = 75)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -154,7 +165,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 85)%>%
+          dplyr::mutate(depth1 = 85)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -162,7 +173,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 95)%>%
+          dplyr::mutate(depth1 = 95)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -170,7 +181,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
         coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
-          mutate(depth1 = 105)%>%
+          dplyr::mutate(depth1 = 105)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
       }
@@ -178,7 +189,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
     coreStd[nrow(coreStd)+(length(depth0_values)-nrow(coreStd)),] <- NA #this adds NAs to depths that didn't have any sample
     coreStd <- coreStd %>%
       dplyr::select(-seg.length) %>%
-      mutate(depth0 = depth0_values,
+      dplyr::mutate(depth0 = depth0_values,
              depth1 = depth1_values,
              coreNum = unique(coreDf$coreNum))
 
