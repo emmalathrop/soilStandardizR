@@ -7,6 +7,7 @@
 #' @param depth1Name bottom depths of each increment in soil core (automatically assumed to be depth1 unless otherwise specified)
 #'
 #' @return A data frame with standardized depth values
+#' @import dplyr
 #' @export
 #'
 #' @examples NA
