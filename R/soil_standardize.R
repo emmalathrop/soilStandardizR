@@ -101,7 +101,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       if(coreSegAll[i,]$cu.seg.length == 5){
         df <- coreSegAll[(i-9):i, ]
         #sum the previous 10 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 5) %>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -109,7 +109,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 15){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 15)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -117,7 +117,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 25){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 25)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -125,7 +125,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 35){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 35)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -133,7 +133,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 45){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 45)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -141,7 +141,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 55){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 55)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -149,7 +149,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 65){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 65)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -157,7 +157,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 75){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 75)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -165,7 +165,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 85){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 85)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -173,7 +173,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 95){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 95)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
@@ -181,7 +181,7 @@ if((is.na(coreNumName) & is.na(depth0Name) & is.na(depth1Name)) & (!("coreNum" %
       else if(coreSegAll[i,]$cu.seg.length == 105){
         df <- coreSegAll[(i-19):i, ]
         #sum the previous 20 values for data every column
-        coreStdRow <- data.frame(lapply(df[], weighted.mean,  w = df$seg.length)) %>%
+        coreStdRow <- data.frame(lapply(df[], stats::weighted.mean,  w = df$seg.length)) %>%
           dplyr::mutate(depth1 = 105)%>%
           dplyr::select(-cu.seg.length)
         coreStd <- rbind(coreStd, coreStdRow)
