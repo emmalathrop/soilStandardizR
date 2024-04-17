@@ -14,7 +14,33 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include=FALSE}
 library(soilStandardizR)
 library(dplyr)
 ```
+
+## soilStandardizR
+
+Welcome to soilStandardizR! The goal of this package is to help standardize soil core data, by depth or horizon. This allows for the comparison of properties of core in depth increments that are the same, throughout time, or from core to core. 
+
+For example, if you collected 10 cores that range in depth increments sampled (i.e. a core with a sample from 0 to 5cm depth and another core with 0 to 7 cm depth) and in terminal depths collected, this package can help to standardize the depths. 
+
+### soil_standardize()
+
+This function takes in a dataframe of soil cores from a variety of depths and standardizes them to be the same depth. The dataframe requires the following numeric columns:
+
+- A column of core IDs that correspond which core contains a given sample
+- A column of values that represent the top depth of the soil sample (Depth0 in example figure)
+- A column of values that represent the bottom depth of the soil sample (Depth1 in example figure)
+- *A column of bulk densities associated with each sample 
+  - Note: if no bulk density is provided, the function will linearly interpolate by depth only
+- Columns with properties of the soil samples that need to be standardized
+  - If a column of bulk densities is provided, the properties will be standardized by their depth and the bulk density of the two depths they need to be included in for the standardization calculations. 
+  - Example properties that can be standardized: %C, %N, moisture
+  
+*optional
+
+#### Depth standardization calculations
+Currently, the function works to standardize to the following depths (cm or in): 0-5, 5-15, 15-25, 25-35, 35-45, 45-55, 55-65, 65-75, 75-85, 85-95, 95-105. If a core does not reach 105cm/in in length, the missing sample depths will be filled with NAs. If a core ends in a depth that does not equate to one of the standard depth1s above, the final depth will be assumed to be full of depth increments entirely made of the last sample. 
+
+The function splits each soil core into  0.5 cm/in increments, and then takes a depth and/or bulk density- weighted average of all the soil samples to reach a depth standardization length. For example, to create the standardized 15-25 segment, the depth weighted average of the bulk densities of the 0.5 segments that sum to 15 through the 0.5 segments that sum to 25 will become the bulk density for the 15-25 segment. The remaining soil properties (i.e. %C, %N, moisture) will be calculated for the same 0.5 segments from the depth and bulk density weighted average for each property. 
