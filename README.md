@@ -5,4 +5,4 @@ Welcome to soilStandardizR! The goal of this package is to help standardize soil
 For example, if you collected 10 cores that range in depth increments sampled (i.e. a core with a sample from 0 to 5cm depth and another core with 0 to 7 cm depth) and in terminal depths collected, this package can help to standardize the depths, and the soil properties measured at the non standard depths, to compare between cores. 
 
 
-![A non-depth standardized core (left) and a standardized one (right).](/Users/emmalathrop/Documents/NAU/SchuurLab/Figures/soilStandardizRFigure.png)
+![A non-depth standardized core (left) and a standardized one (right).](/Users/emmalathrop/Documents/GitHub/soilStandardizR/man/soilStandardizRFigure.png)
