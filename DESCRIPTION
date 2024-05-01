@@ -2,9 +2,9 @@ Package: soilStandardizR
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Emma", "Lathrop", , "el498@nau.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3079-588X"))
+Description: soilStandardizR converts non-standardized soil core measurements into standardized depth increments that are comparable between cores.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
